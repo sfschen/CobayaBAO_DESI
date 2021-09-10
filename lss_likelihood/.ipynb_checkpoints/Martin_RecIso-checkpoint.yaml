@@ -1,5 +1,0 @@
-zfid:     0.85
-OmM_fid: 0.3
-
-bao_datfn: /global/cscratch1/sd/sfschen/desi_bao_fitting/data/Martin_RecIso/UNIT_Pk/pk_unit_martin_reciso.txt
-covfn: /global/cscratch1/sd/sfschen/desi_bao_fitting/data/Martin_RecIso/EZ_Cov/cov_martin_reciso_block_diag_p0p2.txt
