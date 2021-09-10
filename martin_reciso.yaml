@@ -1,0 +1,206 @@
+likelihood:
+  mock_likelihoods.Martin_RecIso:
+    bao_sample_name: Martin_RecIso
+    
+    zfid: 0.85
+    OmM_fid: 0.30
+    rsdrag_fid: 100.
+    
+    template_fn: templates/Pk_Planck15_Table4.txt
+    template_nw_fn: templates/Pk_Planck15_NW_Table4.txt
+    Rsmooth: 15.
+    
+    kmin: 0.02
+    kmax: 0.20
+    stop_at_error: True
+    
+params:
+  apar:
+    prior:
+      min: 0.5
+      max: 1.5
+    ref:
+      dist: norm
+      loc:  1.0
+      scale: 0.05
+    latex: \alpha_\parallel
+  aperp:
+    prior:
+      min: 0.5
+      max: 1.5
+    ref:
+      dist: norm
+      loc:  1.0
+      scale: 0.05
+    latex: \alpha_\perp
+    
+  # Post-recon parameters
+  B1_Martin_RecIso:
+    prior:
+      dist: uniform
+      min: 0.0
+      max: 5.0
+    ref:
+      dist: norm
+      loc: 3.66323048e-01
+      scale: 0.1
+    latex: B_1
+  F_Martin_RecIso:
+    prior:
+      dist: uniform
+      min: 0.0
+      max: 5.0
+    ref:
+      dist: norm
+      loc: 4.05375603e-01
+      scale: 0.1
+    latex: F
+    
+  # For these priors we take the philosophy that M_n * k^n ~ P(k) ~ 3e4
+  # In other words M_n ~ P(k) / k^n ~ 3e4 / (0.1)^n
+  # i.e. a0 <~ 5e-3, a2 <~ 5e-1, and we enforce a 10x wide Gaussian prior on this estimation
+  M0_Martin_RecIso:
+    prior:
+      dist: norm
+      loc: 0.
+      scale: 1e5
+    ref:
+      dist: norm
+      loc:  6.75776919e+02
+      scale: 100
+    latex: M_0
+  M1_Martin_RecIso:
+    prior:
+      dist: norm
+      loc: 0.
+      scale: 1e5
+    ref:
+      dist: norm
+      loc: -4.96112286e+03
+      scale: 1000
+    latex: M_1
+  M2_Martin_RecIso:
+    prior:
+      dist: norm
+      loc: 0.
+      scale: 1e5
+    ref:
+      dist: norm
+      loc: 3.99540233e+03
+      scale: 1000.
+    latex: M_2
+  M3_Martin_RecIso:
+    prior:
+      dist: norm
+      loc: 0.
+      scale: 1e5
+    ref:
+      dist: norm
+      loc: 2.59597454e+03
+      scale: 1000.
+    latex: M_3
+  M4_Martin_RecIso:
+    prior:
+      dist: norm
+      loc: 0.
+      scale: 1e5
+    ref:
+      dist: norm
+      loc:  8.83424679e+02
+      scale: 1000.
+    latex: M_4
+
+  Q0_Martin_RecIso:
+    prior:
+      dist: norm
+      loc: 0.
+      scale: 1e5
+    ref:
+      dist: norm
+      loc: 4.30277195e+03
+      scale: 1000.
+    latex: Q_0
+  Q1_Martin_RecIso:
+    prior:
+      dist: norm
+      loc: 0.
+      scale: 1e5
+    ref:
+      dist: norm
+      loc: -4.15491148e+04
+      scale: 1000.
+    latex: Q_1
+  Q2_Martin_RecIso:
+    prior:
+      dist: norm
+      loc: 0.
+      scale: 1e5
+    ref:
+      dist: norm
+      loc: 8.59251310e+04
+      scale: 1000.
+    latex: Q_2
+  Q3_Martin_RecIso:
+    prior:
+      dist: norm
+      loc: 0.
+      scale: 1e5
+    ref:
+      dist: norm
+      loc: 3.92423326e+04
+      scale: 1000.
+    latex: Q_3
+  Q4_Martin_RecIso:
+    prior:
+      dist: norm
+      loc: 0.
+      scale: 1e5
+    ref:
+      dist: norm
+      loc: 1.25253236e+04
+      scale: 1000.
+    latex: Q_4
+    
+
+sampler:
+  evaluate:
+    override:
+      apar: 1.0
+      aperp: 1.0
+      B1_Martin_RecIso: 3.66323048e-01
+      F_Martin_RecIso: 4.05375603e-01
+      M0_Martin_RecIso: 6.75776919e+02
+      M1_Martin_RecIso: -4.96112286e+03
+      M2_Martin_RecIso: 3.99540233e+03
+      M3_Martin_RecIso: 2.59597454e+03
+      M4_Martin_RecIso: 8.83424679e+02
+      Q0_Martin_RecIso: 4.30277195e+03
+      Q1_Martin_RecIso: -4.15491148e+04
+      Q2_Martin_RecIso: 8.59251310e+04
+      Q3_Martin_RecIso: 3.92423326e+04
+      Q4_Martin_RecIso: 1.25253236e+04
+timing: True
+output: chains/test_bao
+stop_on_error: True
+
+sampler:
+  mcmc:
+    #covmat: auto
+#    covmat: /global/cscratch1/sd/sfschen/CobayaLSS/chains/boss_ngc_z3_covmat_init.dat
+#    covmat: /global/cscratch1/sd/sfschen/CobayaLSS/chains/joint_z3.covini
+    learn_proposal: True
+    learn_proposal_Rminus1_max: 15.
+    output_every: 60s
+    measure_speeds: False
+    max_tries: 500
+    drag: False
+    oversample_power: 0.4
+    proposal_scale: 1.5
+    Rminus1_stop: 0.01
+    blocking:
+      - [ 1, [apar, aperp, B1_Martin_RecIso, F_Martin_RecIso, M0_Martin_RecIso, M1_Martin_RecIso, M2_Martin_RecIso, M3_Martin_RecIso, M4_Martin_RecIso, Q0_Martin_RecIso, Q1_Martin_RecIso, Q2_Martin_RecIso, Q3_Martin_RecIso, Q4_Martin_RecIso]]
+debug: True
+debug_file: chains/martin_reciso
+output: chains/martin_reciso
+timing: True
+stop_on_error: True
