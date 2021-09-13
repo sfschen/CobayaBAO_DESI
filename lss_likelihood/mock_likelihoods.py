@@ -1,7 +1,8 @@
-from bao_likelihood import RecIsoLikelihood
+from reciso_likelihood import RecIsoLikelihood
+from recsym_likelihood import RecSymLikelihood
 
 class Martin_RecIso(RecIsoLikelihood):
     pass
 
-class Julian_RecIso(RecIsoLikelihood):
+class Martin_RecSym(RecSymLikelihood):
     pass
