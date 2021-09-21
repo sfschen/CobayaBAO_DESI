@@ -14,7 +14,6 @@ from scipy.integrate import simps
 from linear_theory import*
 from pnw_dst import pnw_dst
 
-
 # Class to for a BAO analysis
 
 class RecIsoLikelihood(Likelihood):
@@ -276,12 +275,12 @@ class RecIsoLikelihood(Likelihood):
         
         # Take out the monopole and quadrupole and tap on k in data that exceed
         # the window matrix entries (which end at 0.4)
-        p0conv = np.concatenate( (convolved_model[:40],self.p0dat[40:]) )
-        p2conv = np.concatenate( (convolved_model[80:120],self.p2dat[40:]) )
+        self.p0conv = np.concatenate( (convolved_model[:40],self.p0dat[40:]) )
+        self.p2conv = np.concatenate( (convolved_model[80:120],self.p2dat[40:]) )
         
         #convolved_model = convolved_model[self.fitiis[fs_sample_name]]
     
-        return np.concatenate( (p0conv,p2conv) )
+        return np.concatenate( (self.p0conv,self.p2conv) )
     
     def bao_observe_ideal(self,tt):
         

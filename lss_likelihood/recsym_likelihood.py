@@ -245,19 +245,19 @@ class RecSymLikelihood(Likelihood):
  
         pknutable[ngauss:,:] = np.flip(pknutable[0:ngauss],axis=0)
         
-        p0 = 0.5 * np.sum((ws*L0)[:,None]*pknutable,axis=0) #+ 1000 * polyval(klin,[m0,m1,m2,m3,m4,m5]) / klin
-        p2 = 2.5 * np.sum((ws*L2)[:,None]*pknutable,axis=0) #+ 1000 * polyval(klin,[q0,q1,q2,q3,q4,q5]) / klin
-        p4 = 4.5 * np.sum((ws*L4)[:,None]*pknutable,axis=0)
+        self.p0 = 0.5 * np.sum((ws*L0)[:,None]*pknutable,axis=0) #+ 1000 * polyval(klin,[m0,m1,m2,m3,m4,m5]) / klin
+        self.p2 = 2.5 * np.sum((ws*L2)[:,None]*pknutable,axis=0) #+ 1000 * polyval(klin,[q0,q1,q2,q3,q4,q5]) / klin
+        self.p4 = 4.5 * np.sum((ws*L4)[:,None]*pknutable,axis=0)
 
         M0, M1, M2, M3, M4 = [pp.get_param(param_name + '_' + bao_sample_name) for param_name in ['M0','M1','M2','M3','M4']]
         Q0, Q1, Q2, Q3, Q4 = [pp.get_param(param_name + '_' + bao_sample_name) for param_name in ['Q0','Q1','Q2','Q3','Q4']]
         
-        p0 += polyval(klin,[M0,M1,M2,M3,M4])
-        p2 += polyval(klin,[Q0,Q1,Q2,Q3,Q4])
+        self.p0 += polyval(klin,[M0,M1,M2,M3,M4])
+        self.p2 += polyval(klin,[Q0,Q1,Q2,Q3,Q4])
         
         #np.savetxt('xitest.dat', np.array([rr0,xi0t,xi2t]).T)
         
-        return np.array([klin,p0,p2,p4]).T
+        return np.array([klin,self.p0,self.p2,self.p4]).T
         
     def bao_observe(self,tt):
         """Apply the window function matrix to get the binned prediction."""
@@ -277,12 +277,12 @@ class RecSymLikelihood(Likelihood):
         
         # Take out the monopole and quadrupole and tap on k in data that exceed
         # the window matrix entries (which end at 0.4)
-        p0conv = np.concatenate( (convolved_model[:40],self.p0dat[40:]) )
-        p2conv = np.concatenate( (convolved_model[80:120],self.p2dat[40:]) )
+        self.p0conv = np.concatenate( (convolved_model[:40],self.p0dat[40:]) )
+        self.p2conv = np.concatenate( (convolved_model[80:120],self.p2dat[40:]) )
         
         #convolved_model = convolved_model[self.fitiis[fs_sample_name]]
     
-        return np.concatenate( (p0conv,p2conv) )
+        return np.concatenate( (self.p0conv,self.p2conv) )
     
     def bao_observe_ideal(self,tt):
         
