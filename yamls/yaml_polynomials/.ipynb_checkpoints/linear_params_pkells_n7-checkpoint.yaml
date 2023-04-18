@@ -1,0 +1,79 @@
+M0_bao:
+  mean: 0.
+  std: 1000000.0
+  recompute: False
+
+M1_bao:
+  mean: 0.
+  std: 1000000.0
+  recompute: False
+  
+M2_bao:
+  mean: 0.
+  std: 1000000.0
+  recompute: False
+
+M3_bao:
+  mean: 0.
+  std: 1000000.0
+  recompute: False
+
+M4_bao:
+  mean: 0.
+  std: 1000000.0
+  recompute: False
+  
+M5_bao:
+  mean: 0.
+  std: 1000000.0
+  recompute: False
+
+M6_bao:
+  mean: 0.
+  std: 1000000.0
+  recompute: False
+
+M7_bao:
+  mean: 0.
+  std: 1.0e-8
+  recompute: False
+
+Q0_bao:
+  mean: 0.
+  std: 1000000.0
+  recompute: False
+
+Q1_bao:
+  mean: 0.
+  std: 1000000.0
+  recompute: False
+
+Q2_bao:
+  mean: 0.
+  std: 1000000.0
+  recompute: False
+
+Q3_bao:
+  mean: 0.
+  std: 1000000.0
+  recompute: False
+
+Q4_bao:
+  mean: 0.
+  std: 1000000.0
+  recompute: False
+  
+Q5_bao:
+  mean: 0.
+  std: 1000000.0
+  recompute: False
+
+Q6_bao:
+  mean: 0.
+  std: 1000000.0
+  recompute: False
+
+Q7_bao:
+  mean: 0.
+  std: 1.0e-8
+  recompute: False

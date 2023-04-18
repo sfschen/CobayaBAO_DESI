@@ -1,0 +1,97 @@
+likelihood:
+  bao_zeldovich_likelihood_flex_am.ZeldovichBAOLikelihood:
+    bao_sample_name: bao
+    bao_datfn: fake_data/lrg_xiells_zeldovich_damping_deltabc_2.0.txt
+    covfn: data/xiells_jmena_cov_cubic.dat
+    
+    linear_param_dict_fn: yaml_ZeldovichTests/linear_params_xiells.yaml
+    optimize: False
+    include_priors: True
+    
+    recon_mode: recsym
+    fourier: False
+    ideal: True
+    window_kin_fn: None
+    window_fn: None
+    wide_angle_fn: None
+    
+    zfid: 0.8
+    OmM_fid: 0.30
+    rsdrag_fid: 100.
+    
+    template_fn: templates/desi_pk.txt
+    template_nw_fn: templates/desi_pnw.txt
+    Rsmooth: 15.
+    
+    xmin: 60.0
+    xmax: 130.0
+    
+    stop_at_error: True
+    
+params:
+  apar:
+    prior:
+      min: 0.5
+      max: 1.5
+    ref:
+      dist: norm
+      loc:  1.0
+      scale: 0.01
+    latex: \alpha_\parallel
+  aperp:
+    prior:
+      min: 0.5
+      max: 1.5
+    ref:
+      dist: norm
+      loc:  1.0
+      scale: 0.01
+    latex: \alpha_\perp
+    
+  # Post-recon parameters
+  B1_bao:
+    prior:
+      dist: uniform
+      min: 0.0
+      max: 5.0
+    ref:
+      dist: norm
+      loc: 1.0
+      scale: 0.1
+    latex: B_1
+  F_bao:
+    prior:
+      dist: uniform
+      min: 0.0
+      max: 5.0
+    ref:
+      dist: norm
+      loc: 0.8
+      scale: 0.1
+    latex: F
+
+  SigmaFoG_bao:
+    value: 1.0
+    
+  A:
+    value: 1.0
+  f_fac:
+    value: 1.0
+
+
+sampler:
+  mcmc:
+    learn_proposal: True
+    learn_proposal_Rminus1_max: 30.0
+    output_every: 60s
+    measure_speeds: False
+    max_tries: 1000
+    drag: False
+    oversample_power: 0.4
+    proposal_scale: 1.5
+    Rminus1_stop: 0.01
+debug: False
+#debug_file: chains_am/prerecon_cubic_pkells_am
+output: chains_ZeldovichTests/recsym_cubic_xiells_dbc_2.0
+timing: True
+stop_on_error: True

@@ -1,0 +1,113 @@
+likelihood:
+  recon_likelihood_am.ReconLikelihood:
+    bao_sample_name: bao
+    bao_datfn: data/xiells_recsym_mean_elg_cubic.dat
+    covfn: data/xiells_prerecon_cov_reduced_elg_cubic.dat
+    
+    linear_param_dict_fn: yaml/linear_params_xiells.yaml
+    optimize: False
+    include_priors: True
+    
+    recon_mode: recsym
+    fourier: False
+    ideal: True
+    window_kin_fn: None
+    window_fn: None
+    wide_angle_fn: None
+    
+    zfid: 1.1
+    OmM_fid: 0.30
+    rsdrag_fid: 100.
+    
+    template_fn: templates/desi_pk.txt
+    template_nw_fn: templates/desi_pnw.txt
+    Rsmooth: 10.
+    
+    xmin: 50.0
+    xmax: 130.0
+    
+    stop_at_error: True
+    
+params:
+  apar:
+    #prior:
+    #  min: 0.5
+    #  max: 1.5
+    #ref:
+    #  dist: norm
+    #  loc:  1.0
+    #  scale: 0.01
+    value: 1.0
+    latex: \alpha_\parallel
+  aperp:
+    #prior:
+    #  min: 0.5
+    #  max: 1.5
+    #ref:
+    #  dist: norm
+    #  loc:  1.0
+    #  scale: 0.01
+    value: 1.0
+    latex: \alpha_\perp
+    
+  Spar:
+    prior:
+      min: 0.0
+      max: 100.0
+    ref:
+      dist: norm
+      loc:  25.0
+      scale: 5.0
+    latex: \Sigma_\parallel
+  Sperp:
+    prior:
+      min: 0.0
+      max: 100.0
+    ref:
+      dist: norm
+      loc:  5.0
+      scale: 1.0
+    latex: \Sigma_\perp
+    
+    
+  # Post-recon parameters
+  B1_bao:
+    prior:
+      dist: uniform
+      min: 0.0
+      max: 5.0
+    ref:
+      dist: norm
+      loc: 0.7
+      scale: 0.1
+    latex: B_1
+  F_bao:
+    prior:
+      dist: uniform
+      min: 0.0
+      max: 5.0
+    ref:
+      dist: norm
+      loc: 0.7
+      scale: 0.1
+    latex: F
+
+
+sampler:
+  mcmc:
+    #covmat: auto
+#    covmat: /global/cscratch1/sd/sfschen/CobayaLSS/chains/boss_ngc_z3_covmat_init.dat
+#    covmat: /global/cscratch1/sd/sfschen/CobayaLSS/chains/joint_z3.covini
+    learn_proposal: True
+    learn_proposal_Rminus1_max: 30.0
+    output_every: 60s
+    measure_speeds: False
+    max_tries: 500
+    drag: False
+    oversample_power: 0.4
+    proposal_scale: 1.5
+    Rminus1_stop: 0.01
+debug: False
+output: chains_am/recsym_cubic_xiells_elg_fitdamp_sigmas
+timing: True
+stop_on_error: True
